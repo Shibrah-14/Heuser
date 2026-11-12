@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, #003366 0%, #001F3F 60%, #000c1a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  user-select: none;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+canvas {
+  background: #001F3F;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 149, 182, 0.35), 0 0 20px rgba(0, 127, 255, 0.2);
+  border: 2px solid #2072AF;
+  cursor: pointer;
+}
