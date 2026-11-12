@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treasure Map Portfolio</title>
+  <!-- Google Fonts: Caveat and Pirata One / Medieval touches -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <!-- Floating HUD: Quest Prompt & Compass Direction -->
+  <div class="hud-banner">
+    <div class="quest-text">
+      🧭 <strong>Voyager's Quest:</strong> Use the <strong>directional arrows</strong> (or keyboard keys) to chart the islands until you find the hidden treasure chest!
+    </div>
+  </div>
+
+  <!-- Directional Controls (Unconventional 4-way navigation) -->
+  <div class="controls-pad" aria-label="Navigation Controls">
+    <button class="nav-btn up" id="btn-up" title="Sail North">▲</button>
+    <div class="middle-row">
+      <button class="nav-btn left" id="btn-left" title="Sail West">◄</button>
+      <div class="compass-core" id="compass-indicator">
+        <span class="needle">✦</span>
+      </div>
+      <button class="nav-btn right" id="btn-right" title="Sail East">►</button>
+    </div>
+    <button class="nav-btn down" id="btn-down" title="Sail South">▼</button>
+  </div>
+
+  <!-- Interactive Map Canvas / World -->
+  <div id="viewport">
+    <div id="map-world">
+      <!-- Water waves background layer -->
+      <div class="water-ripples"></div>
+
+      <!-- Dotted Adventure Trail SVG -->
+      <svg class="map-path-svg" viewBox="0 0 2400 1700">
+        <!-- Path connecting Island 1 to Island 2 to Island 3 to Island 4 (Treasure) -->
+        <path class="trail-line" d="M 380 420 Q 620 600, 850 480 T 1300 700 Q 1550 900, 1850 1150" />
+      </svg>
+
+      <!-- ISLAND 1: The Port of Origin -->
+      <section class="island island-start" style="top: 250px; left: 200px;">
+        <div class="island-landmass">
+          <div class="ship-icon">⛵</div>
+          <div class="island-content">
+            <h1 class="island-title">The Port of Departure</h1>
+            <p class="island-desc">
+              Welcome, fellow adventurer! This is the uncharted archive of my personal voyage.
+            </p>
+            <div class="scroll-note">
+              📜 <em>Take helm with the controls in the corner and sail towards the southeast winds...</em>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISLAND 2: The Cartographer's Sanctuary (Concept & Unconventional Note) -->
+      <section class="island island-concept" style="top: 360px; left: 780px;">
+        <div class="island-landmass">
+          <div class="island-content">
+            <h2 class="island-title">Cartographer's Log</h2>
+            <div class="concept-box">
+              <p>
+                <strong>The Unconventional Concept:</strong> This portfolio rejects the traditional website model of top navigation menus, banners, and static footers. Instead, it is an interactive treasure atlas navigated via physical directional steering controls. The visitor must explore the islands to discover who I am, uncovering milestones as pirate gold buried beneath the final shore.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISLAND 3: The Lookout Cay -->
+      <section class="island island-mid" style="top: 650px; left: 1180px;">
+        <div class="island-landmass">
+          <div class="island-content">
+            <h2 class="island-title">Lookout Cay</h2>
+            <p class="island-desc">
+              "Treasure ahead through the lilac mist! Keep navigating southeast!"
+            </p>
+            <div class="seagull s1">🕊️</div>
+            <div class="seagull s2">🕊️</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISLAND 4: TREASURE ATOLL (Final Destination) -->
+      <section class="island island-treasure" id="treasure-island" style="top: 980px; left: 1680px;">
+        <div class="island-landmass gold-shimmer">
+          
+          <!-- Flag pole with Pirate Flag & User Photo -->
+          <div class="flag-assembly">
+            <div class="flag-pole"></div>
+            <div class="pirate-flag" title="The Pirate Captain">
+              <img src="pirate.jpg" alt="Female Pirate Captain" class="flag-portrait">
+              <div class="flag-crease"></div>
+            </div>
+            <div class="captain-badge">Captain Shibrah</div>
+          </div>
+
+          <!-- Treasure Chest Area -->
+          <div class="chest-wrapper">
+            <div class="chest-beacon">Click to unlock the treasure!</div>
+            <div class="treasure-chest" id="chest" role="button" tabindex="0" title="Click the chest!">
+              <div class="chest-lid">
+                <span class="lock-buckle">🗝️</span>
+              </div>
+              <div class="chest-box">
+                <div class="chest-glow"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pop-up Coins Container -->
+          <div class="coins-arena" id="coins-arena">
+            <!-- Coin 1 -->
+            <div class="coin-item" style="--tx: -160px; --ty: -180px; --delay: 0.1s;">
+              <div class="coin-inner">
+                <div class="coin-face coin-front">🪙 <span>Milestone</span></div>
+                <div class="coin-face coin-back">♟️ Learned chess</div>
+              </div>
+            </div>
+
+            <!-- Coin 2 -->
+            <div class="coin-item" style="--tx: -50px; --ty: -240px; --delay: 0.25s;">
+              <div class="coin-inner">
+                <div class="coin-face coin-front">🪙 <span>Milestone</span></div>
+                <div class="coin-face coin-back">🌱 Moderately overcame social anxiety</div>
+              </div>
+            </div>
+
+            <!-- Coin 3 -->
+            <div class="coin-item" style="--tx: 80px; --ty: -230px; --delay: 0.4s;">
+              <div class="coin-inner">
+                <div class="coin-face coin-front">🪙 <span>Milestone</span></div>
+                <div class="coin-face coin-back">🎮 Made my first ever working game</div>
+              </div>
+            </div>
+
+            <!-- Coin 4 -->
+            <div class="coin-item" style="--tx: 180px; --ty: -150px; --delay: 0.55s;">
+              <div class="coin-inner">
+                <div class="coin-face coin-front">🪙 <span>Milestone</span></div>
+                <div class="coin-face coin-back">🧶 Made a crochet cardigan</div>
+              </div>
+            </div>
+
+            <!-- Special Coin: HW 7 Link -->
+            <div class="coin-item special-hw-coin" style="--tx: 15px; --ty: -110px; --delay: 0.7s;">
+              <a href="https://shibrah-14.github.io/Heuser/CS_CRP/Homework_6/index.html" target="_blank" rel="noopener noreferrer" class="coin-inner">
+                <div class="coin-face coin-front gold-star">⭐ <span>Previous Voyage</span></div>
+                <div class="coin-face coin-back link-coin">⚓ HW 7 Website ↗</div>
+              </a>
+            </div>
+
+          </div> <!-- /coins-arena -->
+
+        </div>
+      </section>
+
+    </div><!-- /#map-world -->
+  </div><!-- /#viewport -->
+
+  <script src="script.js"></script>
+</body>
+</html>

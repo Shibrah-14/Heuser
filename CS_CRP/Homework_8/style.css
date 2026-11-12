@@ -1,0 +1,547 @@
+/* -------------------------------------------------------------
+   THEME COLORS (No default white-and-blue!):
+   - Ochre:   #C67C27
+   - Saffron: #F3A623
+   - Lilac:   #A27CB5 & #C49ED9
+   - Deep Rum Brown / Earth: #442618
+   - Parchment Sand / Sea:   #D9BD8B & #1B4D4F (Dark Teal/Ochre Ocean)
+-------------------------------------------------------------- */
+
+:root {
+  --color-ochre: #C67C27;
+  --color-ochre-light: #DF9B43;
+  --color-saffron: #F3A623;
+  --color-saffron-bright: #FFCA40;
+  --color-lilac: #A27CB5;
+  --color-lilac-light: #CCA8DF;
+  --color-rum-dark: #371D12;
+  --color-parchment: #E6D0A7;
+  --color-ocean: #204C49; /* Deep teal/sea-pine, unconventional ocean */
+  --font-hand: 'Caveat', cursive, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #0c233c;
+  font-family: var(--font-hand);
+  color: var(--color-rum-dark);
+}
+
+/* ==========================================================================
+   VIEWPORT & SCROLLABLE MAP WORLD
+   ========================================================================== */
+#viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#map-world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2600px;
+  height: 1800px;
+  background-image: 
+    radial-gradient(circle at 40% 40%, rgba(198, 124, 39, 0.15), transparent 70%),
+    radial-gradient(circle at 75% 75%, rgba(162, 124, 181, 0.25), transparent 60%),
+    linear-gradient(rgba(10, 25, 45, 0.55), rgba(10, 25, 45, 0.55)),
+    url('ocean_bg.jpg');
+  background-repeat: repeat;
+  background-size: auto, auto, auto, 700px;
+  transform: translate(0px, 0px);
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Water Ripple Animation */
+.water-ripples {
+  display: none;
+}
+
+/* SVG Adventure Path */
+.map-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2400px;
+  height: 1700px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.trail-line {
+  fill: none;
+  stroke: var(--color-ochre-light);
+  stroke-width: 6;
+  stroke-dasharray: 14 12;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  animation: dashWalk 40s linear infinite;
+}
+
+@keyframes dashWalk {
+  to {
+    stroke-dashoffset: -800;
+  }
+}
+
+/* ==========================================================================
+   ISLANDS (LANDMASSES)
+   ========================================================================== */
+.island {
+  position: absolute;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.island-landmass {
+  position: relative;
+  background: var(--color-parchment);
+  border: 5px solid var(--color-ochre);
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  padding: 35px 40px;
+  box-shadow: 
+    0 16px 28px rgba(0, 0, 0, 0.45),
+    inset 0 0 35px rgba(198, 124, 39, 0.35);
+  max-width: 480px;
+  backdrop-filter: blur(2px);
+}
+
+.island-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-rum-dark);
+  margin-bottom: 12px;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
+}
+
+.island-desc {
+  font-size: 1.45rem;
+  line-height: 1.4;
+  color: #3b2214;
+}
+
+/* Island 1: Port of Departure */
+.island-start .island-landmass {
+  border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%;
+  border-color: var(--color-saffron);
+}
+
+.ship-icon {
+  font-size: 3rem;
+  margin-bottom: -10px;
+  display: inline-block;
+  animation: shipBob 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes shipBob {
+  0% { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-8px) rotate(4deg); }
+}
+
+.scroll-note {
+  margin-top: 15px;
+  padding: 10px 14px;
+  background: rgba(243, 166, 35, 0.22);
+  border-left: 4px solid var(--color-saffron);
+  border-radius: 6px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Island 2: Concept Sanctuary */
+.island-concept .island-landmass {
+  max-width: 440px;
+  border-color: var(--color-lilac);
+  border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
+}
+
+.concept-box {
+  background: rgba(162, 124, 181, 0.16);
+  border: 2px dashed var(--color-lilac);
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+
+/* Island 3: Lookout Cay */
+.island-mid .island-landmass {
+  max-width: 380px;
+  border-color: var(--color-ochre);
+}
+
+.seagull {
+  font-size: 2rem;
+  display: inline-block;
+  animation: fly 4s ease-in-out infinite alternate;
+}
+.seagull.s2 {
+  animation-delay: 2s;
+  margin-left: 20px;
+}
+
+@keyframes fly {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-12px) translateX(8px); }
+}
+
+/* ==========================================================================
+   ISLAND 4: TREASURE ATOLL
+   ========================================================================== */
+.island-treasure .island-landmass {
+  width: 580px;
+  min-height: 440px;
+  border-radius: 50% 50% 45% 55% / 60% 55% 45% 40%;
+  border-color: var(--color-saffron);
+  box-shadow: 
+    0 0 50px rgba(243, 166, 35, 0.4),
+    0 18px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Flagpole and Female Pirate Flag */
+.flag-assembly {
+  position: absolute;
+  top: -110px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.flag-pole {
+  width: 8px;
+  height: 220px;
+  background: linear-gradient(to right, #2a140b, #593019, #2a140b);
+  border-radius: 4px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+}
+
+.pirate-flag {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  width: 125px;
+  height: 125px;
+  background-color: var(--color-lilac);
+  border: 4px solid var(--color-ochre);
+  border-radius: 4px 18px 18px 4px;
+  overflow: hidden;
+  box-shadow: 3px 6px 15px rgba(0,0,0,0.4);
+  transform-origin: left center;
+  animation: flagWave 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes flagWave {
+  0% { transform: perspective(400px) rotateY(0deg) skewY(0deg); }
+  50% { transform: perspective(400px) rotateY(-18deg) skewY(2deg); }
+  100% { transform: perspective(400px) rotateY(12deg) skewY(-2deg); }
+}
+
+.flag-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.1);
+}
+
+.captain-badge {
+  position: absolute;
+  top: 145px;
+  left: 10px;
+  background: var(--color-ochre);
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+/* Chest Wrapper & Animation */
+.chest-wrapper {
+  margin-top: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.chest-beacon {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--color-rum-dark);
+  background: var(--color-saffron-bright);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  border: 2px solid var(--color-ochre);
+  animation: pulseBeacon 1.8s infinite;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(243, 166, 35, 0.5); }
+  50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(243, 166, 35, 0.9); }
+}
+
+.treasure-chest {
+  position: relative;
+  width: 120px;
+  height: 85px;
+  transition: transform 0.2s ease;
+}
+
+.treasure-chest:hover {
+  transform: scale(1.08);
+}
+
+.chest-lid {
+  width: 100%;
+  height: 42px;
+  background: linear-gradient(180deg, #7A421D 0%, #4D260E 100%);
+  border-radius: 20px 20px 4px 4px;
+  border: 4px solid var(--color-saffron);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.lock-buckle {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+}
+
+.chest-box {
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(180deg, #592C11 0%, #361705 100%);
+  border: 4px solid var(--color-saffron);
+  border-radius: 0 0 12px 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.chest-glow {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--color-saffron-bright) 10%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* OPENED CHEST STATE */
+.treasure-chest.open .chest-lid {
+  transform: rotateX(120deg) translateY(-8px);
+}
+
+.treasure-chest.open .chest-glow {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   POPPING COINS & ACHIEVEMENTS
+   ========================================================================== */
+.coins-arena {
+  position: absolute;
+  top: 240px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.coin-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 135px;
+  height: 135px;
+  margin-left: -67px;
+  margin-top: -67px;
+  perspective: 1000px;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.2);
+  transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+/* Active popping state triggered by JavaScript */
+.coins-arena.popped .coin-item {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(var(--tx), var(--ty)) scale(1);
+  transition-delay: var(--delay);
+}
+
+.coin-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+
+.coin-item:hover .coin-inner {
+  transform: rotateY(180deg);
+}
+
+.coin-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.coin-front {
+  background: radial-gradient(circle at 35% 35%, var(--color-saffron-bright), var(--color-ochre));
+  border: 4px solid #FFE494;
+  color: #3d1c06;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.coin-back {
+  background: radial-gradient(circle at 35% 35%, var(--color-lilac-light), var(--color-lilac));
+  border: 4px solid #EADBFF;
+  color: #270c36;
+  transform: rotateY(180deg);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Special Coin for Homework 7 Link */
+.special-hw-coin .coin-front {
+  background: radial-gradient(circle at 35% 35%, #FFDF6D, var(--color-saffron));
+  border-color: #FFF2B2;
+}
+
+.special-hw-coin .coin-back.link-coin {
+  background: radial-gradient(circle at 35% 35%, #ffd479, #c67c27);
+  border-color: #FFF;
+  color: #240f04;
+  font-size: 1.35rem;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   FIXED HUD & CONTROLS (NO TRADITIONAL NAVBAR/FOOTER!)
+   ========================================================================== */
+.hud-banner {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(230, 208, 167, 0.95);
+  border: 3px solid var(--color-ochre);
+  border-radius: 30px;
+  padding: 10px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  font-size: 1.4rem;
+  color: var(--color-rum-dark);
+  text-align: center;
+}
+
+/* 4-Way Arrow Controls Pad */
+.controls-pad {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: rgba(55, 29, 18, 0.85);
+  padding: 12px;
+  border-radius: 50px;
+  border: 3px solid var(--color-saffron);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
+.middle-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-btn {
+  width: 52px;
+  height: 52px;
+  background: var(--color-ochre);
+  color: #fff;
+  border: 2px solid var(--color-saffron);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.1s, background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-btn:hover {
+  background: var(--color-saffron);
+  transform: scale(1.08);
+}
+
+.nav-btn:active {
+  transform: scale(0.92);
+}
+
+.compass-core {
+  width: 44px;
+  height: 44px;
+  background: var(--color-lilac);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.3rem;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
